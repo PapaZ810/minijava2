@@ -1,0 +1,15 @@
+// This is a line comment
+int x = 25;
+double z = 5.0, peanut, ampersand = z;
+/* This is a
+block comment
+*/
+print("\n\tx = ", x);
+x++;
+peanut = (int) (++x / (z + 5) - ampersand * ampersand);
+double r = 3; // radius
+double PI = 3.1415926535; /* approximation */
+/* old version: didn't work for some reason?????
+double A = r^2 * pi; */
+double A = r * r * PI;
+print("For a circle of radius ", r, " the area is approximately ", A);
