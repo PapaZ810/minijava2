@@ -3,6 +3,7 @@ package edu.westminstercollege.cmpt355.minijava2;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.util.Arrays;
 
@@ -34,7 +35,7 @@ public class Main {
                 String.format("test_output/%s.j", CLASS_NAME)
         });
 
-        /*
+
         try {
             // Use reflection to find the class that was just compiled
             var compiledClass = Class.forName(CLASS_NAME);
@@ -51,7 +52,7 @@ public class Main {
             // An exception was thrown by the compiled program (not a compiler problem 🙂)
             ex.getTargetException().printStackTrace();
         }
-        */
+
     }
 
     private static String getClassNameFromPath(String path) {
