@@ -5,12 +5,11 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
-import java.util.Arrays;
 
 public class Main {
 
     public static void main(String... args) throws IOException {
-        final String MINI_JAVA_FILE = "test_programs/p4test.txt";
+        final String MINI_JAVA_FILE = "test_programs/p5test.txt";
         final String CLASS_NAME = getClassNameFromPath(MINI_JAVA_FILE);
 
         System.out.printf("Compiling class %s from %s...\n", CLASS_NAME, MINI_JAVA_FILE);
@@ -35,7 +34,6 @@ public class Main {
                 String.format("test_output/%s.j", CLASS_NAME)
         });
 
-
         try {
             // Use reflection to find the class that was just compiled
             var compiledClass = Class.forName(CLASS_NAME);
@@ -48,6 +46,7 @@ public class Main {
             System.out.println("——— End of output ———");
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException ex) {
             System.err.println("Unable to execute newly-compiled program: class or method not found!");
+            ex.printStackTrace();
         } catch (InvocationTargetException ex) {
             // An exception was thrown by the compiled program (not a compiler problem 🙂)
             ex.getTargetException().printStackTrace();

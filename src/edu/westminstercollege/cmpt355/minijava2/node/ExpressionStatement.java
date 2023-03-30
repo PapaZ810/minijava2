@@ -15,6 +15,6 @@ public record ExpressionStatement(ParserRuleContext ctx, Expression expr) implem
     @Override
     public void typecheck(SymbolTable symbols) throws SyntaxException {
         expr.typecheck(symbols);
-        System.out.println(expr.getType(symbols));
+        //System.out.println(expr.getType(symbols));
     }
 }
