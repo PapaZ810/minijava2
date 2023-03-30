@@ -64,8 +64,7 @@ returns [Expression n]
     | op=('++' | '--' | '+' | '-') expr {
         if ($op.text.equals("-")) {
             $n = new Negate($ctx, $expr.n);
-        }
-        else if (!$op.text.equals("+")) {
+        } else if (!$op.text.equals("+")) {
             $n = new PreIncrement($ctx, $expr.n, $op.text);
         }
     }
