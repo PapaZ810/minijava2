@@ -34,7 +34,7 @@ public record VarDeclarations(ParserRuleContext ctx, TypeNode type, List<VarDecs
             }
 
             if (tp == PrimitiveType.Double) //if statement generated using Copilot
-                symbols.findVariable(var.name()).get().setIndex(symbols.allocateLocalVariable(2));
+                symbols.findVariable(var.name()).get().setIndex(symbols.allocateLocalVariable(2)-1);
             else
                 symbols.findVariable(var.name()).get().setIndex(symbols.allocateLocalVariable(1));
         }    

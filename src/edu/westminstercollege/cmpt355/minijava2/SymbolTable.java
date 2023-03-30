@@ -20,7 +20,6 @@ public class SymbolTable {
             }*/
             variables.put(name, v);
         }
-
         return v;
     }
 
