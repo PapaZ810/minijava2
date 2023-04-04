@@ -316,8 +316,15 @@ public class Compiler {
                 } else if (type.getType() == PrimitiveType.Int && child.getType(symbols) == PrimitiveType.Double) {
                     out.println("d2i");
                 } else if (type.getType().equals(new ClassType("String"))) {
-                    //im shitting my pants
-                    out.println("uh oh");
+                    if (child.getType(symbols) == PrimitiveType.Int) {
+                        out.println("invokedynamic makeConcatWithConstants(I)Ljava/lang/String;");
+                    } else if (child.getType(symbols) == PrimitiveType.Double) {
+                        out.println("invokedynamic makeConcatWithConstants(D)Ljava/lang/String;");
+                    } else if (child.getType(symbols) == PrimitiveType.Boolean) {
+                        out.println("invokedynamic makeConcatWithConstants(Z)Ljava/lang/String;");
+                    } else {
+                        out.println("invokedynamic makeConcatWithConstants(Ljava/lang/String;)Ljava/lang/String;");
+                    }
                 }
             }
             default ->

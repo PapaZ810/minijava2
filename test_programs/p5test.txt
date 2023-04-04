@@ -1,3 +1,22 @@
-double x = -12.5;
-print(x++ + --x); // -25.0
-print(x);         // -12.5
+int cents = 583;
+print("Change for $", cents / 100.0, ":"); // Change for $5.83:
+
+int dollars = cents / 100;
+cents = cents % 100;
+
+int quarters = cents / 25;
+cents = cents % 25;
+
+int dimes = cents / 10;
+cents = cents % 10;
+
+int nickels = cents / 5;
+cents = cents % 5;
+
+int pennies = cents;
+
+print("    ", dollars, " dollars");   //     5 dollars
+print("    ", quarters, " quarters"); //     3 quarters
+print("    ", dimes, " dimes");       //     0 dimes
+print("    ", nickels, " nickels");   //     1 nickels
+print("    ", pennies, " pennies");   //     3 pennies
