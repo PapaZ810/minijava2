@@ -22,8 +22,8 @@ public record Cast(ParserRuleContext ctx, TypeNode type, Expression expr) implem
             if ((type.getType() == PrimitiveType.Int || type.getType() == PrimitiveType.Double) && !(exprType == PrimitiveType.Int || exprType == PrimitiveType.Double)) {
                 throw new SyntaxException(this, "Ints or doubles can only be cast to ints or doubles");
             } else if (Objects.equals(type.getType().toString(), "ClassType[name=String]")
-                    && !(exprType == PrimitiveType.Int || exprType == PrimitiveType.Double || Objects.equals(exprType.toString(), "ClassType[name=String]"))) {
-                throw new SyntaxException(this, "Only ints, doubles, and strings can be cast to strings");
+                    && !(exprType == PrimitiveType.Boolean || exprType == PrimitiveType.Int || exprType == PrimitiveType.Double || Objects.equals(exprType.toString(), "ClassType[name=String]"))) {
+                throw new SyntaxException(this, "Only ints, doubles, booleans, and strings can be cast to strings");
             } else if (type.getType() == PrimitiveType.Boolean && exprType != PrimitiveType.Boolean) {
                 throw new SyntaxException(this, "Only booleans can be cast to booleans");
             }

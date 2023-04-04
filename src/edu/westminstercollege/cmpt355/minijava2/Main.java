@@ -9,7 +9,7 @@ import java.nio.file.Path;
 public class Main {
 
     public static void main(String... args) throws IOException {
-        final String MINI_JAVA_FILE = "test_programs/p5test.txt";
+        final String MINI_JAVA_FILE = "test_programs/p6test.txt";
         final String CLASS_NAME = getClassNameFromPath(MINI_JAVA_FILE);
 
         System.out.printf("Compiling class %s from %s...\n", CLASS_NAME, MINI_JAVA_FILE);

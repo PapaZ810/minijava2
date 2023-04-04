@@ -1,1 +1,1 @@
-print((String)23); // 23
+print((String)(double)(int)23.5); // 23.0
