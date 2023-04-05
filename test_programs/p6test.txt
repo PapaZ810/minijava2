@@ -1,1 +1,1 @@
-print((String)(double)(int)23.5); // 23.0
+_print(Math.PI); // 3.141592653589793

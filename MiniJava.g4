@@ -80,7 +80,7 @@ returns [Expression n]
     |<assoc=right>l=expr '=' r=expr {
         $n = new Assignment($ctx, $l.n, $r.n);
     }
-    | 'print' '(' (args+=expr (',' args+=expr )*)? ')' {
+    | '_print' '(' (args+=expr (',' args+=expr )*)? ')' {
         var arguments = new ArrayList<Expression>();
         for (var arg : $args)
             arguments.add(arg.n);
@@ -88,6 +88,21 @@ returns [Expression n]
     }
     | '(' expr ')' {
         $n = $expr.n;
+    }
+    | expr '.' NAME '(' (args+=expr (',' args+=expr )*)? ')' {
+        var arguments = new ArrayList<Expression>();
+        for (var arg : $args)
+            arguments.add(arg.n);
+        $n = new MethodCall($ctx, $expr.n, $NAME.text, arguments);
+    }
+    |<assoc=right>expr '.' NAME {
+        $n = new FieldAccess($ctx, $expr.n, $NAME.text);
+    }
+    | 'new' NAME '(' (args+=expr (',' args+=expr )*)? ')' {
+        var arguments = new ArrayList<Expression>();
+        for (var arg : $args)
+            arguments.add(arg.n);
+        $n = new ConstructorCall($ctx, $NAME.text, arguments);
     }
     | INT {
         $n = new IntLiteral($ctx, Integer.parseInt($INT.text));
