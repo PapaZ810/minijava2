@@ -4,7 +4,29 @@ grammar MiniJava;
 import edu.westminstercollege.cmpt355.minijava2.node.*;
 }
 
-methodBody
+
+/*
+classNodes
+returns [ClassNode n]
+    : (methods+=method)* EOF {
+        var methos = new ArrayList<MethodBody>();
+        for (var method : $methods)
+            methos.add(method.n);
+        $n = new ClassNode($ctx, methos);
+    }
+    ;
+
+method
+    : NAME '(' (args+=expr (',' args+=expr )*)? ')' block {
+        var arguments = new ArrayList<Expression>();
+        for (var arg : $args)
+            arguments.add(arg.n);
+        $n = new MethodDefinition($ctx, $NAME.text, arguments, $block.n);
+    }
+    ;
+    */
+
+block
 returns [Block n]
     : (stmts += statement)* EOF {
         var statements = new ArrayList<Statement>();
