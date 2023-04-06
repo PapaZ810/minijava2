@@ -36,7 +36,18 @@ public class SymbolTable {
     }
 
     public Optional<Variable> findVariable(String name) {
-        return Optional.ofNullable(variables.get(name));
+
+        var maybeVar = Optional.ofNullable(variables.get(name));
+        var ancestor = parent;
+
+        while (maybeVar.isEmpty()) {
+            if (ancestor != null) {
+                maybeVar = ancestor.findVariable(name);
+            } else {
+                break;
+            }
+        }
+        return maybeVar;
     }
 
     public int getVariableCount() {
@@ -45,5 +56,15 @@ public class SymbolTable {
 
     public int allocateLocalVariable(int size) {
         return variableIndex+=size;
+    }
+
+    public int allocateVariable(int size) {
+        if (level == Level.METHOD) {
+            return allocateLocalVariable(size);
+        } else if (level == Level.BLOCK) {
+            return parent.allocateVariable(size);
+        } else {
+            throw new RuntimeException("Internal compiler error: symbol table weirdness");
+        }
     }
 }

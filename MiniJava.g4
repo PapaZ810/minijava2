@@ -4,8 +4,6 @@ grammar MiniJava;
 import edu.westminstercollege.cmpt355.minijava2.node.*;
 }
 
-
-/*
 classNodes
 returns [ClassNode n]
     : (methods+=method)* EOF {
@@ -24,11 +22,11 @@ method
         $n = new MethodDefinition($ctx, $NAME.text, arguments, $block.n);
     }
     ;
-    */
+
 
 block
 returns [Block n]
-    : (stmts += statement)* EOF {
+    : (stmts += statement)* {
         var statements = new ArrayList<Statement>();
         for (var stmt : $stmts)
             statements.add(stmt.n);
