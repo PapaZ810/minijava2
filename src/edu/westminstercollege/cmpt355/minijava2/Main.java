@@ -3,8 +3,11 @@ package edu.westminstercollege.cmpt355.minijava2;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 
 public class Main {
 
@@ -16,6 +19,9 @@ public class Main {
 
         var lexer = new MiniJavaLexer(CharStreams.fromFileName(MINI_JAVA_FILE));
         var parser = new MiniJavaParser(new CommonTokenStream(lexer));
+
+        List<Class<?>> paramTypes = List.of(String.class);
+        System.out.println(Reflect.findConstructor(String.class, paramTypes));
 
         var program = parser.methodBody().n;
         AST.checkForNulls(program);

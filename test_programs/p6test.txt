@@ -1,1 +1,1 @@
-System.out.println((String)new Badger("Margaret")); // Badger[name=Margaret]
+;

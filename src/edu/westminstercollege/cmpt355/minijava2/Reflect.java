@@ -63,7 +63,7 @@ public class Reflect {
 
         try {
             field = clazz.getField(name);
-            type = typeFromClass(clazz);
+            type = typeFromClass(field.getType());
         } catch (NoSuchFieldException e) {
             return Optional.empty();
         }
@@ -97,8 +97,28 @@ public class Reflect {
 
         // Note that this method returns a *miniJava* Method object, not a java.lang.reflect.Method! This means that
         // the return/parameter types will need to be mapped to Types.
+        List<Type> miniTypes = new java.util.ArrayList<>(List.of());
 
-        throw new RuntimeException("Unimplemented");
+        for (var method : clazz.getMethods()) {
+            if (method.getName().equals(name)) {
+                var parameters = method.getParameters();
+                if (parameters.length == parameterTypes.size()) {
+                    for (int i = 0; i < parameters.length; i++) {
+                        if (!parameters[i].getType().equals(parameterTypes.get(i))) {
+                            return Optional.empty();
+                        }
+                    }
+                    for (var param : parameterTypes) {
+                        if (!typeFromClass(param).isPresent()) {
+                            return Optional.empty();
+                        }
+                        miniTypes.add(typeFromClass(param).get());
+                    }
+                    return Optional.of(new Method(new ClassType(clazz.getName()), name, miniTypes, typeFromClass(method.getReturnType()).get()));
+                }
+            }
+        }
+        return Optional.empty();
     }
 
     /**
@@ -125,6 +145,27 @@ public class Reflect {
         // - the return type is always void;
         // - the class type is never a StaticType.
 
-        throw new RuntimeException("Unimplemented");
+        List<Type> miniTypes = new java.util.ArrayList<>(List.of());
+
+        for (var constructor : clazz.getConstructors()) {
+            if (constructor.getName().equals("<init>")) {
+                var parameters = constructor.getParameters();
+                if (parameters.length == parameterTypes.size()) {
+                    for (int i = 0; i < parameters.length; i++) {
+                        if (!parameters[i].equals(parameterTypes.get(i))) {
+                            return Optional.empty();
+                        }
+                    }
+                    for (var param : parameterTypes) {
+                        if (!typeFromClass(param).isPresent()) {
+                            return Optional.empty();
+                        }
+                        miniTypes.add(typeFromClass(param).get());
+                    }
+                    return Optional.of(new Method(new ClassType(clazz.getName()), "<init>", miniTypes, VoidType.Instance));
+                }
+            }
+        }
+        return Optional.empty();
     }
 }
