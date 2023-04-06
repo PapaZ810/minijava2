@@ -21,10 +21,10 @@ public class Main {
         var lexer = new MiniJavaLexer(CharStreams.fromFileName(MINI_JAVA_FILE));
         var parser = new MiniJavaParser(new CommonTokenStream(lexer));
 
-        List<Type> paramTypes = List.of(new ClassType("String"));
+        List<Type> paramTypes = List.of(PrimitiveType.Int);
         SymbolTable symbolTable = new SymbolTable();
         //System.out.println(symbolTable.findJavaClass("Math"));
-        System.out.println(symbolTable.findConstructor(new ClassType("String"), paramTypes));
+        System.out.println(symbolTable.findMethod(new ClassType("String"),"substring", paramTypes));
 
         var program = parser.methodBody().n;
         AST.checkForNulls(program);

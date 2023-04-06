@@ -105,20 +105,17 @@ public class Reflect {
                 var parameters = method.getParameters();
                 if (parameters.length == parameterTypes.size()) {
                     for (int i = 0; i < parameters.length; i++) {
-                        var p = parameters[i].getType();
                         if (!parameters[i].getType().equals(parameterTypes.get(i))) {
                             break;
-                        } else {
-                            for (var param : parameterTypes) {
-                                if (!typeFromClass(param).isPresent()) {
-                                    return Optional.empty();
-                                }
-                                miniTypes.add(typeFromClass(param).get());
-                            }
-                            return Optional.of(new Method(new ClassType(clazz.getName()), name, miniTypes, typeFromClass(method.getReturnType()).get()));
                         }
                     }
-
+                    for (var param : parameterTypes) {
+                        if (!typeFromClass(param).isPresent()) {
+                            return Optional.empty();
+                        }
+                        miniTypes.add(typeFromClass(param).get());
+                    }
+                    return Optional.of(new Method(new ClassType(clazz.getName()), name, miniTypes, typeFromClass(method.getReturnType()).get()));
                 }
             }
         }
