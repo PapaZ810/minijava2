@@ -1,5 +1,6 @@
 package edu.westminstercollege.cmpt355.minijava2;
 
+import edu.westminstercollege.cmpt355.minijava2.node.DoubleLiteral;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import java.io.IOException;
@@ -20,8 +21,10 @@ public class Main {
         var lexer = new MiniJavaLexer(CharStreams.fromFileName(MINI_JAVA_FILE));
         var parser = new MiniJavaParser(new CommonTokenStream(lexer));
 
-        List<Class<?>> paramTypes = List.of(String.class);
-        System.out.println(Reflect.findConstructor(String.class, paramTypes));
+        List<Type> paramTypes = List.of(new ClassType("String"));
+        SymbolTable symbolTable = new SymbolTable();
+        //System.out.println(symbolTable.findJavaClass("Math"));
+        System.out.println(symbolTable.findConstructor(new ClassType("String"), paramTypes));
 
         var program = parser.methodBody().n;
         AST.checkForNulls(program);
