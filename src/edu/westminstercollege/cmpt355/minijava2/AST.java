@@ -61,4 +61,27 @@ public class AST {
 
         c.consume(root);
     }
+
+    public static void checkForNulls(Node root) {
+        checkForNulls(List.of(), root);
+    }
+
+    private static void checkForNulls(List<Node> path, Node next) {
+        var descriptions = path.stream().map(Node::getNodeDescription).toList();
+        var pathString = String.join(" → ", descriptions) + " → null";
+        if (path.isEmpty())
+            pathString = "root node is null";
+
+        if (next == null)
+            throw new NullPointerException("Null child found in AST: " + pathString);
+
+        var children = next.children();
+        if (children == null)
+            throw new NullPointerException("Node's children() returns null: " + pathString);
+
+        var subPath = new ArrayList<>(path);
+        subPath.add(next);
+
+        children.forEach(child -> checkForNulls(subPath, child));
+    }
 }

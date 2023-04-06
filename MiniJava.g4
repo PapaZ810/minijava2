@@ -89,14 +89,14 @@ returns [Expression n]
     | '(' expr ')' {
         $n = $expr.n;
     }
-    | expr '.' NAME '(' (args+=expr (',' args+=expr )*)? ')' {
+    | l=expr '.' NAME '(' (args+=expr (',' args+=expr )*)? ')' {
         var arguments = new ArrayList<Expression>();
         for (var arg : $args)
             arguments.add(arg.n);
-        $n = new MethodCall($ctx, $expr.n, $NAME.text, arguments);
+        $n = new MethodCall($ctx, $l.n, $NAME.text, arguments);
     }
-    |<assoc=right>expr '.' NAME {
-        $n = new FieldAccess($ctx, $expr.n, $NAME.text);
+    |<assoc=right>l=expr '.' NAME {
+        $n = new FieldAccess($ctx, $l.n, $NAME.text);
     }
     | 'new' NAME '(' (args+=expr (',' args+=expr )*)? ')' {
         var arguments = new ArrayList<Expression>();

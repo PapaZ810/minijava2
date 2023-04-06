@@ -1,4 +1,4 @@
-// Generated from C:/Users/capta/IdeaProjects/minijava2\MiniJava.g4 by ANTLR 4.12.0
+// Generated from java-escape by ANTLR 4.11.1
 package edu.westminstercollege.cmpt355.minijava2;
 
 import edu.westminstercollege.cmpt355.minijava2.node.*;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class MiniJavaParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.12.0", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -85,7 +85,7 @@ public class MiniJavaParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "MiniJava.g4"; }
+	public String getGrammarFileName() { return "java-escape"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -129,7 +129,7 @@ public class MiniJavaParser extends Parser {
 			setState(15);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 981370826L) != 0)) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 981370826L) != 0) {
 				{
 				{
 				setState(12);
@@ -204,7 +204,7 @@ public class MiniJavaParser extends Parser {
 				setState(25);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 981370826L) != 0)) {
+				while (((_la) & ~0x3f) == 0 && ((1L << _la) & 981370826L) != 0) {
 					{
 					{
 					setState(22);
@@ -458,7 +458,7 @@ public class MiniJavaParser extends Parser {
 				setState(63);
 				((ExprContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 960L) != 0)) ) {
+				if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 960L) != 0) ) {
 					((ExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 				}
 				else {
@@ -501,7 +501,7 @@ public class MiniJavaParser extends Parser {
 				setState(83);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 974030784L) != 0)) {
+				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 974030784L) != 0) {
 					{
 					setState(75);
 					((ExprContext)_localctx).expr = ((ExprContext)_localctx).expr = expr(0);
@@ -560,7 +560,7 @@ public class MiniJavaParser extends Parser {
 				setState(103);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 974030784L) != 0)) {
+				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 974030784L) != 0) {
 					{
 					setState(95);
 					((ExprContext)_localctx).expr = ((ExprContext)_localctx).expr = expr(0);
@@ -672,7 +672,7 @@ public class MiniJavaParser extends Parser {
 						setState(122);
 						((ExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 28672L) != 0)) ) {
+						if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 28672L) != 0) ) {
 							((ExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
@@ -754,6 +754,7 @@ public class MiniJavaParser extends Parser {
 					case 5:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
+						_localctx.l = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(139);
 						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
@@ -766,7 +767,7 @@ public class MiniJavaParser extends Parser {
 						setState(151);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 974030784L) != 0)) {
+						if (((_la) & ~0x3f) == 0 && ((1L << _la) & 974030784L) != 0) {
 							{
 							setState(143);
 							((ExprContext)_localctx).expr = ((ExprContext)_localctx).expr = expr(0);
@@ -797,13 +798,14 @@ public class MiniJavaParser extends Parser {
 						                  var arguments = new ArrayList<Expression>();
 						                  for (var arg : ((ExprContext)_localctx).args)
 						                      arguments.add(arg.n);
-						                  ((ExprContext)_localctx).n =  new MethodCall(_localctx, ((ExprContext)_localctx).expr.n, (((ExprContext)_localctx).NAME!=null?((ExprContext)_localctx).NAME.getText():null), arguments);
+						                  ((ExprContext)_localctx).n =  new MethodCall(_localctx, ((ExprContext)_localctx).l.n, (((ExprContext)_localctx).NAME!=null?((ExprContext)_localctx).NAME.getText():null), arguments);
 						              
 						}
 						break;
 					case 6:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
+						_localctx.l = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(155);
 						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
@@ -812,7 +814,7 @@ public class MiniJavaParser extends Parser {
 						setState(157);
 						((ExprContext)_localctx).NAME = match(NAME);
 
-						                  ((ExprContext)_localctx).n =  new FieldAccess(_localctx, ((ExprContext)_localctx).expr.n, (((ExprContext)_localctx).NAME!=null?((ExprContext)_localctx).NAME.getText():null));
+						                  ((ExprContext)_localctx).n =  new FieldAccess(_localctx, ((ExprContext)_localctx).l.n, (((ExprContext)_localctx).NAME!=null?((ExprContext)_localctx).NAME.getText():null));
 						              
 						}
 						break;

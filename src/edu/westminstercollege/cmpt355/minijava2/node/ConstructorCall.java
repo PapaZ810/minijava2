@@ -23,6 +23,10 @@ public record ConstructorCall(ParserRuleContext ctx, String name, List<Expressio
         return ctx;
     }
 
+    @Override
+    public String getNodeDescription() {
+        return String.format("ConstructorCall [class: %s]", name);
+    }
 
     @Override
     public void typecheck(SymbolTable symbols) throws SyntaxException {

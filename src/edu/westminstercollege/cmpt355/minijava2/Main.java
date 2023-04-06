@@ -18,6 +18,7 @@ public class Main {
         var parser = new MiniJavaParser(new CommonTokenStream(lexer));
 
         var program = parser.methodBody().n;
+        AST.checkForNulls(program);
         AST.print(program);
 
         var compiler = new Compiler(program, CLASS_NAME);

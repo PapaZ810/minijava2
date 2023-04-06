@@ -26,6 +26,11 @@ public record FieldAccess(ParserRuleContext ctx, Expression object, String field
     }
 
     @Override
+    public String getNodeDescription() {
+        return String.format("FieldAccess [field: %s]", field);
+    }
+
+    @Override
     public void typecheck(SymbolTable symbols) throws SyntaxException {
 
     }

@@ -20,6 +20,11 @@ public record MethodCall(ParserRuleContext ctx, Expression object, String method
     }
 
     @Override
+    public String getNodeDescription() {
+        return String.format("MethodCall [method: %s]", methodName);
+    }
+
+    @Override
     public ParserRuleContext ctx() {
         return ctx;
     }
