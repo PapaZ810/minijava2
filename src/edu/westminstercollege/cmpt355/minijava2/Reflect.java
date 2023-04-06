@@ -1,6 +1,7 @@
 package edu.westminstercollege.cmpt355.minijava2;
 
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -148,21 +149,20 @@ public class Reflect {
         List<Type> miniTypes = new java.util.ArrayList<>(List.of());
 
         for (var constructor : clazz.getConstructors()) {
-            if (constructor.getName().equals("<init>")) {
-                var parameters = constructor.getParameters();
-                if (parameters.length == parameterTypes.size()) {
-                    for (int i = 0; i < parameters.length; i++) {
-                        if (!parameters[i].equals(parameterTypes.get(i))) {
-                            return Optional.empty();
+            var parameters = constructor.getParameters();
+            if (parameters.length == parameterTypes.size()) {
+                for (int i = 0; i < parameters.length; i++) {
+                    if (!parameters[i].getType().equals(parameterTypes.get(i))) {
+                        break;
+                    } else {
+                        for (var param : parameterTypes) {
+                            if (!typeFromClass(param).isPresent()) {
+                                return Optional.empty();
+                            }
+                            miniTypes.add(typeFromClass(param).get());
                         }
+                        return Optional.of(new Method(new ClassType(clazz.getName()), "<init>", miniTypes, VoidType.Instance));
                     }
-                    for (var param : parameterTypes) {
-                        if (!typeFromClass(param).isPresent()) {
-                            return Optional.empty();
-                        }
-                        miniTypes.add(typeFromClass(param).get());
-                    }
-                    return Optional.of(new Method(new ClassType(clazz.getName()), "<init>", miniTypes, VoidType.Instance));
                 }
             }
         }

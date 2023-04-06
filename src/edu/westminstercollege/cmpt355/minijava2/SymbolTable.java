@@ -34,4 +34,16 @@ public class SymbolTable {
     public int allocateLocalVariable(int size) {
         return variableIndex+=size;
     }
+
+    public Optional<Class<?>> findJavaClass(String className) {
+        var c = Reflect.classForName(className);
+        if (c.isPresent()) {
+            return c;
+        }
+        if (Reflect.classForName("java.lang." + className).isEmpty()) {
+            return Reflect.classForName("java.lang." + className);
+        } else {
+            return Reflect.classForName("java.util." + className);
+        }
+    }
 }
