@@ -1,5 +1,6 @@
 package edu.westminstercollege.cmpt355.minijava2;
 
+import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,8 +58,23 @@ public class Reflect {
         // returns a *miniJava* Field object.
 
         // Use getModifiers() on the java.lang.reflect.Field object to check whether it is static.
+        java.lang.reflect.Field field = null;
+        Optional<Type> type = null;
 
-        throw new RuntimeException("Unimplemented");
+        try {
+            field = clazz.getField(name);
+            type = typeFromClass(clazz);
+        } catch (NoSuchFieldException e) {
+            return Optional.empty();
+        }
+
+        String modifiers = Modifier.toString(field.getModifiers());
+
+        if (modifiers.contains("static")) {
+            return Optional.of(new Field(new StaticType(field.getClass().toString()), name, type.get()));
+        } else {
+            return Optional.of(new Field(new ClassType(field.getClass().toString()), name, type.get()));
+        }
     }
 
     /**
