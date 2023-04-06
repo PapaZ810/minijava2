@@ -6,8 +6,20 @@ import java.util.Optional;
 
 public class SymbolTable {
 
+    enum Level {
+        CLASS,
+        METHOD,
+        BLOCK
+    }
+
     private Map<String, Variable> variables = new HashMap<>();
     private int variableIndex = 0;
+    private Level level;
+    private SymbolTable parent;
+
+    public SymbolTable(Level level) {
+        this.level = level;
+    }
 
     public Variable registerVariable(Type type, String name) {
         Variable v = variables.get(name);
