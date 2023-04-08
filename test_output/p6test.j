@@ -18,5 +18,12 @@ return
 .limit stack 100
 .limit locals 2
 
+getstatic java/lang/System/out Ljava/io/PrintStream;
+getstatic java/lang/System.out Ljava/io/PrintStream;
+invokestatic java/lang/String.valueOf(Ljava/io/PrintStream;)Ljava/lang/String;
+ldc ""
+invokevirtual java/lang/String.concat(Ljava/lang/String;)Ljava/lang/String;
+getstatic java/lang/System/out Ljava/io/PrintStream;
+invokevirtual java/io/PrintStream/println()V
 return
 .end method

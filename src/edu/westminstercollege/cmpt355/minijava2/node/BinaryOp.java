@@ -32,8 +32,8 @@ public record BinaryOp(ParserRuleContext ctx, Expression left, Expression right,
         } else if (Objects.equals(op, "+")) {
             if (!(leftType == PrimitiveType.Int || leftType == PrimitiveType.Double || Objects.equals(leftType, stringType))
                 || !(rightType == PrimitiveType.Int || rightType == PrimitiveType.Double || Objects.equals(rightType, stringType))) {
-                    if (!(leftType == PrimitiveType.Boolean || Objects.equals(rightType, stringType))
-                        && !(Objects.equals(leftType, stringType) || rightType == PrimitiveType.Boolean)) {
+                    if (!(leftType == PrimitiveType.Boolean || rightType instanceof ClassType)
+                        && !(leftType instanceof ClassType || rightType == PrimitiveType.Boolean)) {
                         throw new SyntaxException(this, "Both operands must be of type int, double, or string for the addition operator");
                     }
             }

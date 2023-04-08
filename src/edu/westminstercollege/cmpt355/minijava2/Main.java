@@ -24,7 +24,7 @@ public class Main {
         List<Type> paramTypes = List.of(PrimitiveType.Int);
         SymbolTable symbolTable = new SymbolTable();
         //System.out.println(symbolTable.findJavaClass("Math"));
-        System.out.println(symbolTable.findMethod(new ClassType("String"),"substring", paramTypes));
+        //System.out.println(symbolTable.findMethod(new ClassType("String"),"substring", paramTypes));
 
         var program = parser.methodBody().n;
         AST.checkForNulls(program);
@@ -37,6 +37,7 @@ public class Main {
         catch (SyntaxException ex) {
             System.out.println("\u001B[31mError on line " + ex.getNode().ctx().start.getLine() + "\u001B[0m");
             System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
 
         jasmin.Main.main(new String[] {

@@ -1,8 +1,6 @@
 package edu.westminstercollege.cmpt355.minijava2.node;
 
-import edu.westminstercollege.cmpt355.minijava2.SymbolTable;
-import edu.westminstercollege.cmpt355.minijava2.SyntaxException;
-import edu.westminstercollege.cmpt355.minijava2.Type;
+import edu.westminstercollege.cmpt355.minijava2.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.List;
@@ -23,6 +21,9 @@ public record VariableAccess(ParserRuleContext ctx, String variableName) impleme
 
     @Override
     public Type getType(SymbolTable symbols) {
+        if (symbols.findJavaClass(variableName).isPresent()) {
+            return new StaticType(variableName);
+        }
         return symbols.findVariable(variableName).get().getType();
     }
 }

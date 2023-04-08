@@ -1,1 +1,1 @@
-;
+_print(System.out + ""); // java.io.PrintStream@340f438e [exact hex number may vary!]
