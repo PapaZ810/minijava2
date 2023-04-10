@@ -19,9 +19,16 @@ return
 .limit locals 2
 
 getstatic java/lang/System/out Ljava/io/PrintStream;
-getstatic java/lang/System.out Ljava/io/PrintStream;
-invokestatic java/lang/String.valueOf(Ljava/io/PrintStream;)Ljava/lang/String;
+ldc 64
+ldc 64
+imul
+invokestatic java/lang/String.valueOf(I)Ljava/lang/String;
 ldc ""
+invokevirtual java/lang/String.concat(Ljava/lang/String;)Ljava/lang/String;
+ldc 12000
+ldc 200
+imul
+invokestatic java/lang/String.valueOf(I)Ljava/lang/String;
 invokevirtual java/lang/String.concat(Ljava/lang/String;)Ljava/lang/String;
 getstatic java/lang/System/out Ljava/io/PrintStream;
 invokevirtual java/io/PrintStream/println()V

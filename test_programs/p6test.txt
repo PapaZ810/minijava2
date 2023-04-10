@@ -1,1 +1,1 @@
-_print(System.out + ""); // java.io.PrintStream@340f438e [exact hex number may vary!]
+_print(64*64 + "" + 12000*200);

@@ -153,8 +153,6 @@ public class Compiler {
     private void generateCode(Expression expr) {
         switch (expr) {
             case Print(ParserRuleContext ctx, List<Expression> args) -> {
-                // Print each argument individually (using generateCode(PrintArgument))
-                // then do a println.
                 for (var arg : args) {
                     out.println("getstatic java/lang/System/out Ljava/io/PrintStream;");
                     generateCode(arg);
@@ -278,7 +276,7 @@ public class Compiler {
                     } else if (Objects.equals(leftType.toString(), "ClassType[name=String]")) {
                         generateCode(left);
                         generateCode(right);
-                        if (rightType instanceof ClassType) {
+                        if (rightType instanceof ClassType && !Objects.equals(rightType.toString(), "ClassType[name=String]")) {
                             String rightString = rightType.toString();
                             rightString = "L" + rightString.substring(15, rightString.length() - 1) + ";";
                             out.printf("invokestatic java/lang/String.valueOf(%s)Ljava/lang/String;\n", rightString.replace(".", "/"));
@@ -286,7 +284,7 @@ public class Compiler {
                             out.printf("invokestatic java/lang/String.valueOf(%s)Ljava/lang/String;\n", getFormatSpecifier(rightType));
                     } else if (Objects.equals(rightType.toString(), "ClassType[name=String]")) {
                         generateCode(left);
-                        if (leftType instanceof ClassType) {
+                        if (leftType instanceof ClassType && !Objects.equals(leftType.toString(), "ClassType[name=String]")) {
                             String leftString = leftType.toString();
                             leftString = "L" + leftString.substring(15, leftString.length() - 1) + ";";
                             out.printf("invokestatic java/lang/String.valueOf(%s)Ljava/lang/String;\n", leftString.replace(".", "/"));
