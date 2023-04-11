@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Compiler {
 
@@ -377,12 +378,44 @@ public class Compiler {
                     generateCode(object);
                     if (field.type() instanceof ClassType) {
                         String fieldType = field.type().toString();
-                        fieldType = fieldType.substring(11, fieldType.length() - 1);
+                        fieldType = fieldType.substring(15, fieldType.length() - 1);
                         out.printf("getfield %s/%s L%s;\n", classPath, fieldName, fieldType.replace(".", "/"));
                     } else
                         out.printf("getfield %s/%s %s\n", classPath, fieldName, getFormatSpecifier(field.type()));
                 }
+            }
+            case MethodCall(ParserRuleContext ctx, Expression object, String methodName, List<Expression> args) -> {
+                var classType = (ClassType)object.getType(symbols);
+                String classPath = symbols.findJavaClass(classType.getName()).get().descriptorString();
+                classPath = classPath.substring(1, classPath.length() - 1);
+                var args2 = args.subList(3, args.size());
+                List<Type> argTypes = new ArrayList<>();
+                for (Expression arg : args2) {
+                    argTypes.add(arg.getType(symbols));
+                }
+                var method = symbols.findMethod(classType, methodName, argTypes).get();
 
+                for (Expression expression : args2) {
+                    generateCode(expression);
+                }
+
+                if (classType instanceof StaticType) {
+                    out.printf("invokestatic %s/%s(", classPath, methodName);
+                } else {
+                    generateCode(object);
+                    out.printf("invokevirtual %s/%s(", classPath, methodName);
+                }
+
+                for (Type argType : argTypes) {
+                    out.print(getFormatSpecifier(argType));
+                }
+
+                if (method.returnType() instanceof ClassType) {
+                    String returnType = method.returnType().toString();
+                    returnType = returnType.substring(15, returnType.length() - 1);
+                    out.printf(")L%s;\n", returnType.replace(".", "/"));
+                } else
+                    out.printf(")%s\n", getFormatSpecifier(method.returnType()));
             }
         }
     }

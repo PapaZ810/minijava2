@@ -1,1 +1,1 @@
-_print(64*64 + "" + 12000*200);
+_print(("ba" + Math.sqrt(-5.0) + "a").toLowerCase()); // banana
